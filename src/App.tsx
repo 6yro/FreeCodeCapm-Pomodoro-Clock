@@ -1,5 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+
 const App = () => {
   const [breakLength, setBreakLength] = useState<number>(5);
   const [sessionLength, setSessionLength] = useState<number>(25);
@@ -102,33 +108,104 @@ const App = () => {
   };
 
   return (
-    <div className="App">
-      <h2 id="break-label">Break Length</h2>
-      <button id="break-increment" onClick={incrementBreakLength}>
-        +
-      </button>
-      <h3 id="break-length">{breakLength}</h3>
-      <button id="break-decrement" onClick={decrementBreakLength}>
-        -
-      </button>
-      <h2 id="session-label">Session Length</h2>
-      <button id="session-increment" onClick={incrementSessionLength}>
-        +
-      </button>
-      <div id="session-length">{sessionLength}</div>
-      <button id="session-decrement" onClick={decrementSessionLength}>
-        -
-      </button>
-      <div id="timer-label">{timerLabel}</div>
-      <div id="time-left">{formatTime(timeLeft)}</div>
-      <button id="start_stop" onClick={handleStartStop}>
-        Start/Stop
-      </button>
-      <button id="reset" onClick={handleReset}>
-        Reset
-      </button>
+    <Stack alignItems="center" padding={4}>
+      <Card sx={{ width: "fit-content", marginBottom: "24px" }}>
+        <CardContent>
+          <Typography variant="h2" mb={3} id="break-label">
+            Break Length
+          </Typography>
+          <Stack
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            gap={4}
+          >
+            <Button
+              id="break-decrement"
+              onClick={decrementBreakLength}
+              variant="contained"
+              sx={{ height: "50%" }}
+            >
+              -
+            </Button>
+            <Typography variant="h3" id="break-length">
+              {breakLength}
+            </Typography>
+            <Button
+              id="break-increment"
+              onClick={incrementBreakLength}
+              variant="contained"
+              sx={{ height: "50%" }}
+            >
+              +
+            </Button>
+          </Stack>
+        </CardContent>
+      </Card>
+      <Card sx={{ width: "fit-content", marginBottom: "24px" }}>
+        <CardContent>
+          <Typography variant="h2" id="session-label" mb={3}>
+            Session Length
+          </Typography>
+          <Stack
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            gap={4}
+          >
+            <Button
+              id="session-decrement"
+              variant="contained"
+              onClick={decrementSessionLength}
+            >
+              -
+            </Button>
+            <Typography variant="h3" id="session-length">
+              {sessionLength}
+            </Typography>
+            <Button
+              id="session-increment"
+              onClick={incrementSessionLength}
+              variant="contained"
+            >
+              +
+            </Button>
+          </Stack>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardContent>
+          <Stack alignItems="center" mb={4}>
+            <Typography variant="h2" id="timer-label" mb={1}>
+              {timerLabel}
+            </Typography>
+            <Typography variant="h3" id="time-left">
+              {formatTime(timeLeft)}
+            </Typography>
+          </Stack>
+          <Stack
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            gap={4}
+          >
+            <Button id="reset" onClick={handleReset} variant="contained">
+              Reset
+            </Button>
+            <Button
+              id="start_stop"
+              onClick={handleStartStop}
+              variant="contained"
+            >
+              Start/Stop
+            </Button>
+          </Stack>
+        </CardContent>
+      </Card>
+
       <audio id="beep" src="/sounds/alarm.wav"></audio>
-    </div>
+    </Stack>
   );
 };
 
